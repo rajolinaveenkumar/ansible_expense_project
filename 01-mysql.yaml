@@ -1,9 +1,9 @@
 - name: Installing MySQL database for expense project
-  hosts: mysql
+  hosts: backend
   become: yes
   vars:
     mysql_root_pwd: ExpenseApp@1
-    mysql_host: 172.31.23.71
+    mysql_host: 172.31.19.61
 
   tasks: 
   - name: Install MySQL libraries
@@ -23,13 +23,13 @@
     ansible.builtin.service:
       name: mysqld
       state: started
-      enabled: true
+      enabled: yes
   
   - name: collecting mysql database information
     community.mysql.mysql_info:
       login_user: root
       login_password: "{{ mysql_root_pwd }}"
-      login_host: 172.31.23.71
+      login_host: "{{ mysql_host }}"
     register: mysql_info
     ignore_errors: true
 
