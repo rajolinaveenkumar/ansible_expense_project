@@ -13,7 +13,7 @@
       state: started
       enabled: true
   
-  - name: mysql information
+  - name: collecting mysql database information
     community.mysql.mysql_info:
       login_user: root
       login_password: ExpenseApp@1
@@ -21,6 +21,15 @@
     register: mysql_info
     ignore_errors: true
 
-  - name: 
+  - name: print mysql information
     ansible.builtin.debug:
       msg: "{{ mysql_info }}"
+
+  - name: setup mysql root password
+    community.mysql.mysql_user:
+      login_user: root
+      host: 172.31.23.71
+      password: ExpenseApp@1
+    when: mysql_info.failed is true
+
+
