@@ -1,5 +1,5 @@
 - name: Installing MySQL database for expense project
-  hosts: backend
+  hosts: mysql
   become: yes
   vars:
     mysql_root_pwd: ExpenseApp@1

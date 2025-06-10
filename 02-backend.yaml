@@ -1,0 +1,10 @@
+- name: Installing nodejs e for expense project
+  hosts: backend
+  become: yes
+  vars:
+    mysql_host: 172.31.17.43
+  tasks:
+  - name: Disable the Node.js module
+    community.general.dnf_module:
+      name: nodejs
+      state: disabled
