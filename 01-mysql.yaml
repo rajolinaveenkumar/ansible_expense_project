@@ -1,9 +1,9 @@
 - name: Installing MySQL database for expense project
-  hosts: backend
+  hosts: mysql
   become: yes
   vars:
     mysql_root_pwd: ExpenseApp@1
-    mysql_host: 172.31.19.61
+    mysql_host: 172.31.23.71
 
   tasks: 
   - name: Install MySQL libraries
@@ -37,16 +37,17 @@
     ansible.builtin.debug:
       msg: "{{ mysql_info }}"
 
-  # - name: setup mysql root password
-  #   community.mysql.mysql_user:
-  #     login_user: root
-  #     name: root 
-  #     
-  #     password: ExpenseApp@1
-  #   when: mysql_info.failed is true
-
-  - name: setup root password
-    ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_pwd }} "
+  - name: setup mysql root password
+    community.mysql.mysql_user:
+      login_user: root
+      name: root
+      priv: "*.*:ALL,GRANT" # Grant all privileges on all databases, with GRANT option if needed.
+      state: present      
+      password: ExpenseApp@1
     when: mysql_info.failed is true
+
+  # - name: setup root password
+  #   ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_pwd }} "
+  #   when: mysql_info.failed is true
 
 
