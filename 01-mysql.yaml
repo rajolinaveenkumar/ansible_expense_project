@@ -1,29 +1,29 @@
 - name: Installing MySQL database for expense project
-  hosts: mysql
+  hosts: frontend
   become: yes
   vars:
     mysql_root_pwd: ExpenseApp@1
-    mysql_host: 172.31.23.71
+    mysql_host: 172.31.17.43
 
   tasks: 
-  # - name: Install MySQL libraries
-  #   ansible.builtin.pip:
-  #     name: "{{ item }}"
-  #     executable: pip3.9
-  #   loop:
-  #     - PyMySQL
-  #     - cryptography
+  - name: Install MySQL libraries
+    ansible.builtin.pip:
+      name: "{{ item }}"
+      executable: pip3.9
+    loop:
+      - PyMySQL
+      - cryptography
 
-  # - name: install mysql
-  #   ansible.builtin.dnf:
-  #     name: mysql-server
-  #     state: installed
+  - name: install mysql
+    ansible.builtin.dnf:
+      name: mysql-server
+      state: installed
 
-  # - name: Start and enabling the mysql service
-  #   ansible.builtin.service:
-  #     name: mysqld
-  #     state: started
-  #     enabled: yes
+  - name: Start and enabling the mysql service
+    ansible.builtin.service:
+      name: mysqld
+      state: started
+      enabled: yes
   
   - name: collecting mysql database information
     community.mysql.mysql_info:
