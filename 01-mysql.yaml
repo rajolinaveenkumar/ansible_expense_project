@@ -39,10 +39,14 @@
 
   - name: setup mysql root password
     community.mysql.mysql_user:
-      login_user: root
+      
       name: root 
-      host: 172.31.23.71
+      
       password: ExpenseApp@1
     when: mysql_info.failed is true
+
+  # - name: setup root password
+  #   ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_pwd }} "
+  #   when: mysql_info.failed is true
 
 
