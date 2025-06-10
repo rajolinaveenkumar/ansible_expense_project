@@ -37,14 +37,16 @@
     ansible.builtin.debug:
       msg: "{{ mysql_info }}"
 
-  - name: setup mysql root password
+  - name: Set MySQL root password (like mysql_secure_installation)
     community.mysql.mysql_user:
-      login_user: root
       name: root
-      priv: "*.*:ALL,GRANT" # Grant all privileges on all databases, with GRANT option if needed.
-      state: present      
-      password: ExpenseApp@1
-    when: mysql_info.failed is true
+      host: "{{ mysql_host }}"
+      password: "ExpenseApp@1"
+      login_user: root
+      login_password: ""
+      check_implicit_admin: true
+      state: present
+
 
   # - name: setup root password
   #   ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_pwd }} "
