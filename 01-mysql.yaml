@@ -1,0 +1,8 @@
+- name: Installing MySQL database for expense project
+  hosts: mysql
+  become: yes
+  tasks: 
+  - name: install mysql
+    ansible.builtin.dnf:
+      name: mysql-server
+      state: installed
