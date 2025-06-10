@@ -28,6 +28,7 @@
   - name: setup mysql root password
     community.mysql.mysql_user:
       login_user: root
+      name: root 
       host: 172.31.23.71
       password: ExpenseApp@1
     when: mysql_info.failed is true
