@@ -30,6 +30,7 @@
       login_user: root
       login_password: "{{ mysql_root_pwd }}"
       login_host: "{{ mysql_host }}"
+      check_implicit_admin: true
     register: mysql_info
     ignore_errors: true
 
@@ -46,6 +47,7 @@
       login_password: ""
       check_implicit_admin: true
       state: present
+    when: mysql_info.failed is true
 
 
   # - name: setup root password
