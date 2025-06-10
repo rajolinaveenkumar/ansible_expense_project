@@ -18,3 +18,8 @@
       login_user: root
       login_password: ExpenseApp@1
       host: 172.31.23.71
+    register: mysql_info
+
+  - name: 
+    ansible.builtin.debug:
+      msg: "{{ mysql_info }}"
