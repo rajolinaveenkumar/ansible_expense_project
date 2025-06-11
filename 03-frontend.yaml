@@ -25,7 +25,7 @@
   - name: Find all content inside the html directory
     ansible.builtin.find:
       path: /usr/share/nginx/html
-      recurse: fasle # recurse: true, it will find deeply nested files and folders, which is not always safe unless you intend it.
+      recurse: false # recurse: true, it will find deeply nested files and folders, which is not always safe unless you intend it.
     register: html_files
 
   - name: print all html files 
