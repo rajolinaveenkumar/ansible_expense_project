@@ -1,0 +1,15 @@
+- name: Installing nginx for expense project
+  hosts: frontend_servers
+  become: yes
+  tasks:
+  - name: Installing nginx
+    ansible.builtin.dnf:
+      name: nginx
+      state: installed
+  
+  - name: Start and enable the nginx service 
+    ansible.builtin.service:
+      name: nginx
+      state: started
+      enabled: true
+      

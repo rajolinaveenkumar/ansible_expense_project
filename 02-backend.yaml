@@ -1,4 +1,4 @@
-- name: Installing nodejs e for expense project
+- name: Installing nodejs for expense project
   hosts: backend_servers
   become: yes
   vars:
@@ -59,7 +59,6 @@
   #     src: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
   #     dest: /app
   #     remote_src: yes # remote_src: yes indicates that the src file is a remote file (in this case, a URL), not a local file present on the control machi
-
 
   - name: Install packages based on package.json.
     community.general.npm:
