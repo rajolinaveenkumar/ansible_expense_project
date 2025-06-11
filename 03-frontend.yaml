@@ -15,19 +15,27 @@
 
   - name: Removing nginx default content
     ansible.builtin.file:
-      path: /usr/share/nginx/html/*
+      path: /usr/share/nginx/html
       state: absent
 
-# If we want to delete all contents (files + subdirectories) inside a directory, but not delete the directory itself.
-
-# ✅ Best Ansible Way: Find files and take output , give this output text task to delete content in loop.
-
-  - name: Find all content inside the html directory
-    ansible.builtin.find:
+  - name: creating html
+    ansible.builtin.file:
       path: /usr/share/nginx/html
-      recurse: true # recurse: true, it will find deeply nested files and folders, which is not always safe unless you intend it.
-    register: html_files
+      state: directory
 
-  - name: print all html files 
-    ansible.builtin.debug:
-      msg: "{{ html_files.files }}"
+  - name: Download and unzip the frontend content
+    ansible.builtin.unarchive:
+      src: https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+      dest: /usr/share/nginx/html/
+      remote_src: yes
+  
+  - name: copy expense config
+    ansible.builtin.copy:
+      src: /home/ec2-user/ansible_expense_project/03-expense.conf
+      dest: /etc/nginx/default.d/expense.conf
+      remote_src: yes
+
+  - name: Start and enable the nginx service 
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
