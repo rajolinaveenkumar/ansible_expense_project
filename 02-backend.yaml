@@ -1,5 +1,5 @@
 - name: Installing nodejs e for expense project
-  hosts: backend
+  hosts: backend_servers
   become: yes
   vars:
     mysql_host: 172.31.17.43
