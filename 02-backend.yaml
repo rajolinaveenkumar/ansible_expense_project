@@ -6,15 +6,15 @@
   tasks:
   - name: Disable the nodejs module
     ansible.builtin.command:
-      cmd: dnf module disable nodejs -y
+      cmd: "dnf module disable nodejs -y" # OR we give like this also --> dnf module disable nodejs -y, with out this " "
 
-  # - name: enable nodejs:20 
-  #   ansible.builtin.command: dnf module enable nodejs:20 -y
+  - name: enable nodejs:20 
+    ansible.builtin.command: "dnf module enable nodejs:20 -y"
 
-  # - name: installing nodejs and mysql
-  #   ansible.builtin.debug:
-  #     name: "{{ item }}"
-  #     state: installed
-  #   loop:
-  #   - nodejs
-  #   - mysql
+  - name: installing nodejs and mysql
+    ansible.builtin.debug:
+      name: "{{ item }}"
+      state: installed
+    loop:
+    - nodejs
+    - mysql
