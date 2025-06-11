@@ -17,3 +17,17 @@
     ansible.builtin.file:
       path: /usr/share/nginx/html/*
       state: absent
+
+# If we want to delete all contents (files + subdirectories) inside a directory, but not delete the directory itself.
+
+# ✅ Best Ansible Way: Find files and take output , give this output text task to delete content in loop.
+
+  - name: Find all content inside the html directory
+    ansible.builtin.find:
+      path: /usr/share/nginx/html
+      recurse: fasle # recurse: true, it will find deeply nested files and folders, which is not always safe unless you intend it.
+    register: html_files
+
+  - name: print all html files 
+    ansible.builtin.debug:
+      msg: "{{ html_files }}"
