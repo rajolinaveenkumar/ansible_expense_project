@@ -4,6 +4,14 @@
   vars:
     mysql_host: 172.31.27.69
   tasks:
+  - name: install python libs
+    ansible.builtin.pip:
+      name: "{{ item }}"
+      executable: pip3.9
+    loop:
+      - PyMySQL
+      - cryptography
+
   - name: Disable the nodejs module
     ansible.builtin.command:
       cmd: "dnf module disable nodejs -y" # OR we give like this also --> dnf module disable nodejs -y, with out this " "
@@ -18,6 +26,7 @@
     loop:
     - nodejs
     - mysql
+    - zip
 
   - name: creat expense user 
     ansible.builtin.user:
@@ -57,5 +66,10 @@
 
   - name: Copy backemd.service file from ansible to remote server 
     ansible.builtin.copy:
-      src: /etc/systemd/system/backend.service
-      dest: /home
+      src: /home/ec2-user/ansible_expense_project/02-backend.service
+      dest: /etc/systemd/system/backend.service
+
+  # - name: Load the schema into database
+  #   community.mysql.mysql_db:
+  #     state: import
+  #     target: /tmp/dump.sql
