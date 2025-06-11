@@ -3,7 +3,7 @@
   become: yes
   vars:
     mysql_root_pwd: ExpenseApp@1
-    mysql_host: 172.31.19.61
+    mysql_host: 172.31.25.188
 
   tasks: 
   - name: Install MySQL libraries
