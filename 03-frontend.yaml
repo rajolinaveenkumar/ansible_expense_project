@@ -17,11 +17,23 @@
     ansible.builtin.file:
       path: /usr/share/nginx/html
       state: absent
+  
+  # - name: find the the files in html directory
+  #   ansible.builtin.find:
+  #     paths: /usr/share/nginx/html # The directory path you want to clean
+  #     recurse: yes  # Recurse to find files in subdirectories
+  #     # file_type: file  # Ensure it only finds files
+  #   register: files_to_remove
 
-  - name: creating html
-    ansible.builtin.file:
-      path: /usr/share/nginx/html
-      state: directory
+  # - name: Recursively remove default nginx directory
+  #   ansible.builtin.file:
+  #     path: "{{ item.path }}"
+  #     state: absent  # Delete the file
+  #   loop: "{{ files_to_remove.files }}"
+  # - name: creating html
+  #   ansible.builtin.file:
+  #     path: /usr/share/nginx/html
+  #     state: directory
 
   - name: Download and unzip the frontend content
     ansible.builtin.unarchive:
