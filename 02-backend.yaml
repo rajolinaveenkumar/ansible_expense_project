@@ -2,7 +2,8 @@
   hosts: backend_servers
   become: yes
   vars:
-    mysql_host: 172.31.27.69
+    mysql_host: 172.31.25.188
+    mysql_root_pwd: ExpenseApp@1
   tasks:
   - name: install python libs
     ansible.builtin.pip:
@@ -64,12 +65,23 @@
     community.general.npm:
       path: /app/
 
-  - name: Copy backemd.service file from ansible to remote server 
+  - name: Copy backend.service file from ansible to remote server 
     ansible.builtin.copy:
-      src: /home/ec2-user/ansible_expense_project/02-backend.service
+      src: /home/ec2-user/ansible_expense_project/02-backend.service # the playbook will check for backend.service only in ansible server. if the backend.service in remote host we need mention the full path.
       dest: /etc/systemd/system/backend.service
 
-  # - name: Load the schema into database
-  #   community.mysql.mysql_db:
-  #     state: import
-  #     target: /tmp/dump.sql
+  - name: Load the schema into database
+    community.mysql.mysql_db:
+  
+      login_host: "{{ mysql_host  }}"
+      login_user: root
+      login_password: "{{ mysql_root_pwd }}"
+      state: import
+      target: /app/schema/backend.sql
+
+  - name: daemon reload,enabled and restart the backend.server
+    ansible.builtin.systemd_service:
+      name: backend.service # here we can mention only "backend"
+      daemon_reload: yes # or we can use "true insted of yes"
+      enabled: yes # or we can use "true insted of yes"
+      state: restarted
