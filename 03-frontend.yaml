@@ -33,7 +33,7 @@
     ansible.builtin.copy:
       src: /home/ec2-user/ansible_expense_project/03-expense.conf
       dest: /etc/nginx/default.d/expense.conf
-      remote_src: yes
+      
 
   - name: Start and enable the nginx service 
     ansible.builtin.service:
