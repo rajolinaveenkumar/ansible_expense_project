@@ -12,7 +12,7 @@
     ansible.builtin.command: "dnf module enable nodejs:20 -y"
 
   - name: installing nodejs and mysql
-    ansible.builtin.debug:
+    ansible.builtin.dnf:
       name: "{{ item }}"
       state: installed
     loop:
