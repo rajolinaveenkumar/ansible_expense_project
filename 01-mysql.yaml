@@ -1,5 +1,5 @@
 - name: Installing MySQL database for expense project
-  hosts: mysql
+  hosts: mysql_servers
   become: yes
   vars:
     mysql_root_pwd: ExpenseApp@1
@@ -29,7 +29,7 @@
     community.mysql.mysql_info:
       login_user: root
       login_password: "{{ mysql_root_pwd }}"
-      login_host: "{{ mysql_host }}"
+      login_host: "{{ mysql_host }}"  # here "mysql_servers" or "<private ip >" it will take host from inventory.ini file or we can provide ip address directl
     register: mysql_info
     ignore_errors: true
 
