@@ -1,8 +1,8 @@
 - name: Installing nodejs e for expense project
-  hosts: backend_servers
+  hosts: frontend_servers
   become: yes
   vars:
-    mysql_host: 172.31.17.43
+    mysql_host: 172.31.27.69
   tasks:
   - name: Disable the nodejs module
     ansible.builtin.command:
