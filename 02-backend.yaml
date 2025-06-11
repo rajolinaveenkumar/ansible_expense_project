@@ -35,3 +35,27 @@
     ansible.builtin.get_url:
       url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
       dest: /tmp/backend.zip
+  
+  - name: unarchive the code
+    ansible.builds.unarchive:
+      src: /tmp/backend.zip
+      dest: /app
+      remote_src: yes
+
+ # BELOW COMMITED MODULE IS USED TO DOWNLOAD AND UNZIP THE CONTANT:
+
+  # - name: Unarchive a file that needs to be downloaded # module to download and extract an archive file (in this case, a ZIP file) from a remote source directly onto the target system.
+  #   ansible.builtin.unarchive:
+  #     src: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+  #     dest: /app
+  #     remote_src: yes # remote_src: yes indicates that the src file is a remote file (in this case, a URL), not a local file present on the control machi
+
+
+  - name: Install packages based on package.json.
+    community.general.npm:
+      path: /app/
+
+  - name: Copy backemd.service file from ansible to remote server 
+    ansible.builtin.copy:
+      src: /etc/systemd/system/backend.service
+      dest: /home
