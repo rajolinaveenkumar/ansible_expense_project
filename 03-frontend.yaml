@@ -12,4 +12,8 @@
       name: nginx
       state: started
       enabled: true
-      
+
+  - name: Removing nginx default content
+    ansible.builds.file:
+      path: /usr/share/nginx/html/*
+      state: absent
