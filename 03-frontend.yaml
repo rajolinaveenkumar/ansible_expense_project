@@ -30,4 +30,4 @@
 
   - name: print all html files 
     ansible.builtin.debug:
-      msg: "{{ html_files }}"
+      msg: "{{ html_files.files }}"
