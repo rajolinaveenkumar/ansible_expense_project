@@ -8,15 +8,13 @@
     ansible.builtin.command:
       cmd: "dnf module disable nodejs"
 
-  # - name: enable nodejs:20 
-  #   ansible.builtin.command: dnf module enable nodejs:20
+  - name: enable nodejs:20 
+    ansible.builtin.command: dnf module enable nodejs:20
 
-  # - name: installing nodejs and mysql
-  #   ansible.builtin.debug:
-  #     name: "{{ item }}"
-  #     state: installed
-  #   loop:
-  #   - nodejs
-  #   - mysql
-    
-    
+  - name: installing nodejs and mysql
+    ansible.builtin.debug:
+      name: "{{ item }}"
+      state: installed
+    loop:
+    - nodejs
+    - mysql
