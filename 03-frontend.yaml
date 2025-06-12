@@ -17,6 +17,11 @@
     ansible.builtin.file:
       path: /usr/share/nginx/html
       state: absent
+      
+  - name: creating html
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: directory
   
   # - name: find the the files in html directory
   #   ansible.builtin.find:
